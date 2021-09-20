@@ -1,0 +1,119 @@
+- Breve descripción
+- Vídeo o imagen de la ejecución
+- Instrucciones detalladas de la ejecución por pasos
+- Categoría (calentamiento, estiramiento, fuerza, etc.)
+- Nivel de dificultad (subjetiva) → Leyenda con colores
+- Cosas a tener en cuenta y posibles riesgos
+- Músculos implicados → Esqueleto con las partes implicadas coloreadas
+- Equipamiento necesario
+- Variaciones del ejercicio (pueden ser otros ejercicios de la bd)
+- Enlaces de interés con más información
+
+
+Respuesta API
+{
+    status_code: 200,
+    message: "Exercise found",
+    data:{
+        id: ObjecId(1234hfhfh28383),
+        name: "Sentadilla",
+        description: "Ejercicio para ganar fuerza en el tren inferior",
+        instructions: "Como se ejecuta el ejercicio paso a paso",
+        images/video: [Links a videos/imagenes de como si hace el ejercicio],
+        muscles:[
+            {
+                id: 2,
+                name: "Quadriceps"
+            },
+            {
+                id: 3,
+                name: "hfhhfhf"
+            }
+        ],
+        category: [
+            {
+                id: 3,
+                name: "Fuerza"
+            }
+        ],
+        equipment: "Dumbell" -> Tambien puede ser como category/muscles,
+        variations:[
+            {
+                id: 16363664
+                name: Sentadilla con dumbell
+            }
+        ],
+        level: "Beginner, Intermediate or Advanced",
+        comments: [
+            "Lesiva para principantes",
+            "hfhfhfhhfhf",
+            "lorem ipsum"
+        ],
+        Links: [
+            "hfhhfhf.com",
+            "hfhhfhf.com"
+        ]
+    },
+    version: "1.0.0" 
+}
+
+ExercisesDB
+
+{
+    id: ObjecId(1234hfhfh28383),
+    name: String,
+    description: String,
+    instructions: String,
+    images/video: [String],
+    muscles: [{
+        type: String,
+        ref: Muscles,
+    }],
+    category: {
+        type: String,
+        ref: Categories,
+    },
+    equipment: {
+        type: String,
+        ref: Equipment
+    },
+    variations: [ObjectId],
+    level: {
+        type: String,
+        ref: Levels
+    },
+    comments: [String],
+    links: [String]
+}
+
+UserDB 
+
+{
+    id: ObjecId,
+    username: {
+        type: String,
+        unique: true
+    },
+    password: hashString,
+}
+
+MusclesDB
+
+{
+    id: ObjectId,
+    name: String,
+    exercises: {
+        type: String,
+        ref: Exercises
+    } -->
+
+    exercises: [id1, id2, ]
+}
+
+Databases:
+    - ExercisesDB
+    - MusclesDB
+    - CategoriesDB
+    - LevelDB
+    - EquipmentDB
+    - UserDB
