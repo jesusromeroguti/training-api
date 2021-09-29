@@ -1,10 +1,15 @@
-// Fichero esquema de Muscle
+// Fichero esquema Level
+/*
+    Nivel de habilidad subjetiva necesaria para poder ejecutar un ejercicio
+    Niveles: Beginner, Intermediate, Advanced
+    Tambien lo podemos entender como nivel de dificultad del ejercicio
+*/
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
 // Definimos el schema
-const muscleSchema = new mongoose.Schema({
-    id:{
+const levelSchema = new mongoose.Schema({
+    id: {
         type: Number,
         unique: true
     },
@@ -19,10 +24,10 @@ const muscleSchema = new mongoose.Schema({
 })
 
 // Aplicamos el validador de campos únicos
-muscleSchema.plugin(uniqueValidator)
+levelSchema.plugin(uniqueValidator)
 
 // Modificamos la función toJson para mostrar lo que queremos
-muscleSchema.set('toJSON', {
+levelSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id
         delete returnedObject._id
@@ -30,6 +35,6 @@ muscleSchema.set('toJSON', {
     }
 })
 
-const Muscle = mongoose.model('Muscle', muscleSchema)
+const Level = mongoose.model('Level', levelSchema)
 
-module.exports = Muscle
+module.exports = Level

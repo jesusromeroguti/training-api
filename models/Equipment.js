@@ -1,10 +1,13 @@
-// Fichero esquema de Muscle
+// Fichero esquema de Equipment
+/*
+    Equipamiento necesario para el ejercicio
+*/
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
 // Definimos el schema
-const muscleSchema = new mongoose.Schema({
-    id:{
+const equipmentSchema = new mongoose.Schema({
+    id: {
         type: Number,
         unique: true
     },
@@ -14,15 +17,15 @@ const muscleSchema = new mongoose.Schema({
     },
     exercises: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Exercise'  
+        ref: 'Exercise'
     }]
 })
 
 // Aplicamos el validador de campos únicos
-muscleSchema.plugin(uniqueValidator)
+equipmentSchema.plugin(uniqueValidator)
 
 // Modificamos la función toJson para mostrar lo que queremos
-muscleSchema.set('toJSON', {
+equipmentSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id
         delete returnedObject._id
@@ -30,6 +33,6 @@ muscleSchema.set('toJSON', {
     }
 })
 
-const Muscle = mongoose.model('Muscle', muscleSchema)
+const Equipment = mongoose.model('Equipment', equipmentSchema)
 
-module.exports = Muscle
+module.exports = Equipment

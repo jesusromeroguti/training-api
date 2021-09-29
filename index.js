@@ -9,6 +9,7 @@ const cors = require('cors')
 
 // Importar los modelos
 const Muscle = require('./models/Muscle')
+const musclesRouter = require('./controllers/muscles')
 
 const app = express()
 
@@ -18,11 +19,11 @@ app.use(cors())
 // BodyParser. Parsea el resultado de la petición
 app.use(express.json())
 
-app.get('/api', (request, response) => {
+app.get('/hello', (request, response) => {
     response.json("Hello World!")
 
     const m = new Muscle({
-        name: "Squat",
+        name: "Pes mort",
         description: "Motherfucker!"
     })
     
@@ -35,25 +36,8 @@ app.get('/api', (request, response) => {
         })
 })
 
-app.get('/muscles', (request, response) => {
-    Muscle.find({})
-        .then(muscle => {
-            console.log(muscle)
-            response.json(muscle)
-        })
-        .catch(err => {
-            console.error(err)
-        })
 
-})
-
- // Note.find({})
-  // .then(notes => {
-  //   response.json(notes)
-  // })
-  // .catch(err => {
-  //   console.error(err)
-  // })
+app.use('/v1/muscles', musclesRouter)
 
 const PORT = process.env.PORT
 const server = app.listen(PORT, () => {

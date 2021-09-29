@@ -1,10 +1,13 @@
-// Fichero esquema de Muscle
+// Fichero esquema de Category
+/*
+    Categorias en las que se puede englobar un ejercicio.
+*/
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
 // Definimos el schema
-const muscleSchema = new mongoose.Schema({
-    id:{
+const categorySchema = new mongoose.Schema({
+    id: {
         type: Number,
         unique: true
     },
@@ -19,10 +22,10 @@ const muscleSchema = new mongoose.Schema({
 })
 
 // Aplicamos el validador de campos únicos
-muscleSchema.plugin(uniqueValidator)
+categorySchema.plugin(uniqueValidator)
 
 // Modificamos la función toJson para mostrar lo que queremos
-muscleSchema.set('toJSON', {
+categorySchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id
         delete returnedObject._id
@@ -30,6 +33,6 @@ muscleSchema.set('toJSON', {
     }
 })
 
-const Muscle = mongoose.model('Muscle', muscleSchema)
+const Category = mongoose.model('Category', categorySchema)
 
-module.exports = Muscle
+module.exports = Category

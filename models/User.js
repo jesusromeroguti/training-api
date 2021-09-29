@@ -1,28 +1,31 @@
-// Fichero esquema de Muscle
+// Fichero esquema de User
+/*
+    Usuarios que pueden utilizar la API
+*/
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
 // Definimos el schema
-const muscleSchema = new mongoose.Schema({
-    id:{
-        type: Number,
-        unique: true
-    },
-    name: {
+const userSchema = new mongoose.Schema({
+    username: {
         type: String,
         unique: true
     },
-    exercises: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Exercise'  
-    }]
+    // Password se guarda hasheada
+    password: {
+        type: String
+    },
+    email: {
+        type: String,
+        unique: true
+    }
 })
 
 // Aplicamos el validador de campos únicos
-muscleSchema.plugin(uniqueValidator)
+userSchema.plugin(uniqueValidator)
 
 // Modificamos la función toJson para mostrar lo que queremos
-muscleSchema.set('toJSON', {
+userSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id
         delete returnedObject._id
@@ -30,6 +33,6 @@ muscleSchema.set('toJSON', {
     }
 })
 
-const Muscle = mongoose.model('Muscle', muscleSchema)
+const User = mongoose.model('User', userSchema)
 
-module.exports = Muscle
+module.exports = User
