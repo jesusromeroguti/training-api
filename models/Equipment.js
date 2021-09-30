@@ -7,7 +7,7 @@ const uniqueValidator = require('mongoose-unique-validator')
 
 // Definimos el schema
 const equipmentSchema = new mongoose.Schema({
-    id: {
+    equipmentId: {
         type: Number,
         unique: true
     },

@@ -9,7 +9,7 @@ const uniqueValidator = require('mongoose-unique-validator')
 
 // Definimos el schema
 const levelSchema = new mongoose.Schema({
-    id: {
+    levelId: {
         type: Number,
         unique: true
     },

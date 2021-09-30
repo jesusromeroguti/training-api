@@ -4,7 +4,7 @@ const uniqueValidator = require('mongoose-unique-validator')
 
 // Definimos el schema
 const muscleSchema = new mongoose.Schema({
-    id:{
+    muscleId:{
         type: Number,
         unique: true
     },
