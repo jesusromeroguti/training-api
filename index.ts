@@ -4,13 +4,13 @@ require('dotenv').config()
 // Ejecuta los modelos 
 require('./db')
 
-import express from 'express';
+import express, {Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 
 
 // Importar los modelos
-const Muscle = require('./models/Muscle')
-const musclesRouter = require('./controllers/muscles')
+// const Muscle = require('./models/Muscle')
+// const musclesRouter = require('./controllers/muscles')
 
 const app = express()
 
@@ -20,25 +20,13 @@ app.use(cors())
 // BodyParser. Parsea el resultado de la petición
 app.use(express.json())
 
-// app.get('/hello', (request: Request, response: Response) => {
-//     response.json("Hello World!")
+app.get('/hello', (req: Request, res: Response, next: NextFunction) => {
+    res.send("Api is alive");
 
-//     const m = new Muscle({
-//         name: "Pes mort",
-//         description: "Motherfucker!"
-//     })
-    
-//     m.save()
-//         .then( res => {
-//             console.log(res)
-//         })
-//         .catch(err => {
-//             console.log(err)
-//         })
-// })
+})
 
 
-app.use('/v1/muscles', musclesRouter)
+// app.use('/v1/muscles', musclesRouter)
 
 const PORT = process.env.PORT
 const server = app.listen(PORT, () => {
