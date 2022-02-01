@@ -2,23 +2,27 @@
 /*
     Categorias en las que se puede englobar un ejercicio.
 */
-const mongoose = require('mongoose')
-const uniqueValidator = require('mongoose-unique-validator')
+import {Schema, Types, model} from 'mongoose';
+import uniqueValidator from 'mongoose-unique-validator'
+import { Exercise } from './Exercise';
+
+export interface Category {
+    name: string;
+    exercises: ( Exercise | Types.ObjectId)[];
+}
 
 // Definimos el schema
-const categorySchema = new mongoose.Schema({
-    categoryId: {
-        type: Number,
-        unique: true
-    },
+const categorySchema = new Schema({
     name: {
         type: String,
         unique: true
     },
-    exercises: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Exercise'  
-    }]
+    exercises: [
+        {
+            type: Types.ObjectId,
+            ref: 'Exercise'  
+        },
+    ]
 })
 
 // Aplicamos el validador de campos únicos
@@ -33,6 +37,4 @@ categorySchema.set('toJSON', {
     }
 })
 
-const Category = mongoose.model('Category', categorySchema)
-
-module.exports = Category
+export const CategoryModel = model('Category', categorySchema, 'Category');

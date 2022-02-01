@@ -2,22 +2,31 @@
 /*
     Usuarios que pueden utilizar la API
 */
-const mongoose = require('mongoose')
-const uniqueValidator = require('mongoose-unique-validator')
+import mongoose from 'mongoose'
+import uniqueValidator from 'mongoose-unique-validator'
+
+export interface User {
+    username: string;
+    password: string;
+    email: string;
+}
 
 // Definimos el schema
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        unique: true
+        unique: true,
+        required: true
     },
     // Password se guarda hasheada
     password: {
-        type: String
+        type: String,
+        required: true,
     },
     email: {
         type: String,
-        unique: true
+        unique: true,
+        required: true,
     }
 })
 
@@ -33,6 +42,4 @@ userSchema.set('toJSON', {
     }
 })
 
-const User = mongoose.model('User', userSchema)
-
-module.exports = User
+export const UserModel = mongoose.model('User', userSchema, 'User');

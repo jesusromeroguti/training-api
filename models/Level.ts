@@ -4,21 +4,23 @@
     Niveles: Beginner, Intermediate, Advanced
     Tambien lo podemos entender como nivel de dificultad del ejercicio
 */
-const mongoose = require('mongoose')
-const uniqueValidator = require('mongoose-unique-validator')
+import {Schema, Types, model} from 'mongoose';
+import uniqueValidator from 'mongoose-unique-validator'
+import { Exercise } from './Exercise';
+
+export interface Level {
+    name: string;
+    exercises: (Exercise | Types.ObjectId)[];
+}
 
 // Definimos el schema
-const levelSchema = new mongoose.Schema({
-    levelId: {
-        type: Number,
-        unique: true
-    },
+const levelSchema = new Schema({
     name: {
         type: String,
         unique: true
     },
     exercises: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'Exercise'  
     }]
 })
@@ -35,6 +37,4 @@ levelSchema.set('toJSON', {
     }
 })
 
-const Level = mongoose.model('Level', levelSchema)
-
-module.exports = Level
+export const LevelModel = model('Level', levelSchema, 'Level');

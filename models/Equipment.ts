@@ -2,21 +2,24 @@
 /*
     Equipamiento necesario para el ejercicio
 */
-const mongoose = require('mongoose')
-const uniqueValidator = require('mongoose-unique-validator')
+
+import {Schema, Types, model} from 'mongoose';
+import uniqueValidator from 'mongoose-unique-validator'
+import { Exercise } from './Exercise';
+
+export interface Equipment {
+    name: string;
+    exercises: (Exercise | Types.ObjectId)[];
+}
 
 // Definimos el schema
-const equipmentSchema = new mongoose.Schema({
-    equipmentId: {
-        type: Number,
-        unique: true
-    },
+const equipmentSchema = new Schema({
     name: {
         type: String,
         unique: true
     },
     exercises: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'Exercise'
     }]
 })
@@ -33,6 +36,4 @@ equipmentSchema.set('toJSON', {
     }
 })
 
-const Equipment = mongoose.model('Equipment', equipmentSchema)
-
-module.exports = Equipment
+export const EquipmentModel = model('Equipment', equipmentSchema, 'Equipment');

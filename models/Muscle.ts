@@ -1,9 +1,15 @@
 // Fichero esquema de Muscle
-const mongoose = require('mongoose')
-const uniqueValidator = require('mongoose-unique-validator')
+import {Schema, Types, model} from 'mongoose';
+import uniqueValidator from 'mongoose-unique-validator';
+import { Exercise } from './Exercise';
+
+export interface Muscle {
+    name: string,
+    exercises: (Exercise | Types.ObjectId)[]
+}
 
 // Definimos el schema
-const muscleSchema = new mongoose.Schema({
+const muscleSchema = new Schema({
     muscleId:{
         type: Number,
         unique: true
@@ -13,7 +19,7 @@ const muscleSchema = new mongoose.Schema({
         unique: true
     },
     exercises: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'Exercise'  
     }]
 })
@@ -30,6 +36,4 @@ muscleSchema.set('toJSON', {
     }
 })
 
-const Muscle = mongoose.model('Muscle', muscleSchema)
-
-module.exports = Muscle
+export const MuscleModel = model('Muscle', muscleSchema, 'Muscle')
